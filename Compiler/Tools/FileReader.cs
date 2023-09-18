@@ -1,9 +1,4 @@
 ﻿using Compiler.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compiler.Tools
 {
@@ -11,12 +6,16 @@ namespace Compiler.Tools
     {
         public string[] GetFilesFromFolder()
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            // Specify the folder path to look into the C: drive under Dev/CompilerFiles
+            string folderPath = @"C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\FilesToCompile";
 
-            string folderPath = Path.Combine(desktopPath, "CompilerFiles");
             try
             {
-                string[] filePaths = Directory.GetFiles(folderPath);
+                // Use the search pattern to get only .asm files
+                string[] filePaths = Directory.GetFiles(folderPath, "*.asm");
+
+                // Additional filter using LINQ to ensure only .asm files are considered
+                filePaths = filePaths.Where(path => Path.GetExtension(path).Equals(".asm", StringComparison.OrdinalIgnoreCase)).ToArray();
 
                 return filePaths;
             }

@@ -1,6 +1,4 @@
 ﻿using Compiler.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace Compiler.Tables
 {

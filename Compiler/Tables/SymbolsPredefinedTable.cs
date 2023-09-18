@@ -1,13 +1,8 @@
 ﻿using Compiler.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compiler.Tables
 {
-    public class SymbolsPredefinedTable :ISymbolsPredefinedTable
+    public class SymbolsPredefinedTable : ISymbolsPredefinedTable
     {
         private readonly Dictionary<string, int> _predefinedTable = new Dictionary<string, int>
         {
