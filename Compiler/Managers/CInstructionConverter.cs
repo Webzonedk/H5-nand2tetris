@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Compiler.Managers
 {
+    /// <summary>
+    /// This class converts a C-instruction to a binary instruction
+    /// </summary>
     internal class CInstructionConverter : ICInstructionConverter
     {
         private readonly ICInstructionAssembler _instructionAssembler;

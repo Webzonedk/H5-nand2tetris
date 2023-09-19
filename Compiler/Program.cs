@@ -81,7 +81,6 @@ namespace Compiler
                 {
                     string? line;
                     Console.WriteLine($"Reading file: {Path.GetFileName(filePath)}");
-
                     while ((line = reader.ReadLine()!) != null)
                     {
                         // Trim leading and trailing white spaces
@@ -96,6 +95,39 @@ namespace Compiler
 
                         // Ignore lines that now become empty or start with '//' 
                         if (String.IsNullOrWhiteSpace(line) || line.StartsWith("//"))
+                        {
+                            continue;
+                        }
+
+                        if (line.StartsWith("("))
+                        {
+                            //if line begins with "(" then it is a label. Set the value of the label to the number of the current line and do not write the labet to the file
+                            string? label = line.Substring(1, line.Length - 2);
+                            _symbolsDynamicTable.AddSymbol(label, currentLineNumber);
+                            currentLineNumber--;
+                        }
+                        currentLineNumber++;
+
+                    }
+                }
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string? line;
+                    Console.WriteLine($"Reading file: {Path.GetFileName(filePath)}");
+                    while ((line = reader.ReadLine()!) != null)
+                    {
+                        // Trim leading and trailing white spaces
+                        line = line.Trim();
+
+                        // Remove inline comments starting with '//'
+                        int commentIndex = line.IndexOf("//", StringComparison.Ordinal);
+                        if (commentIndex >= 0)
+                        {
+                            line = line.Substring(0, commentIndex).Trim();
+                        }
+
+                        // Ignore lines that now become empty or start with '//' 
+                        if (String.IsNullOrWhiteSpace(line) || line.StartsWith("//") || line.StartsWith("("))
                         {
                             continue;
                         }
@@ -132,20 +164,11 @@ namespace Compiler
                                 }
                             }
                         }
-                        else if (line.StartsWith("("))
-                        {
-                            //if line begins with "(" then it is a label. Set the value of the label to the number of the current line and do not write the labet to the file
-                            string? label = line.Substring(1, line.Length - 2);
-                            _symbolsDynamicTable.AddSymbol(label, currentLineNumber);
-                        }
                         else
                         {
                             string? instructionBinary = _cInstructionConverter.ConvertCInstruction(line);
                             fileContent.AppendLine(instructionBinary);
                         }
-                        currentLineNumber++;
-
-
                     }
                     WriteToFile(newFilePath, fileContent);
                 }
