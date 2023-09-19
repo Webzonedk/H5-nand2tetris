@@ -151,9 +151,9 @@ namespace Compiler.Managers
                     }
                 }
             }
-            else
+            else if(!string.IsNullOrWhiteSpace(line))
             {
-                string? instructionBinary = _cInstructionConverter.ConvertCInstruction(line);
+                string instructionBinary = _cInstructionConverter.ConvertCInstruction(line);
                 fileContent.AppendLine(instructionBinary);
             }
         }
