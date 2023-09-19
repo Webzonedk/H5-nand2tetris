@@ -2,6 +2,9 @@
 
 namespace Compiler.Tables
 {
+    /// <summary>
+    /// This class is used to map the C-instruction to its binary code. and using the methods to return the binary code for the C-instruction parts.
+    /// </summary>
     internal class CInstructionTable : ICInstructionTable
     {
         private readonly Dictionary<string, string> _destTable = new Dictionary<string, string>
@@ -61,8 +64,9 @@ namespace Compiler.Tables
         };
 
 
+
         /// <summary>
-        /// This method reads the instruction and returns the binary code for the dest part of the instruction.
+        /// This  reads the instruction from Dest dictionary and returns the binary code for the dest part of the instruction.
         /// </summary>
         /// <param name="dest"></param>
         /// <returns>returns the binary code for the dest part of the instruction.</returns>
@@ -78,8 +82,10 @@ namespace Compiler.Tables
             }
         }
 
+
+
         /// <summary>
-        /// This method reads the instruction and returns the binary code for the comp part of the instruction.
+        /// This method reads the instruction from Jump dictionary returns the binary code for the jump part of the instruction.
         /// </summary>
         /// <param name="dest"></param>
         /// <param name="comp"></param>
@@ -97,8 +103,10 @@ namespace Compiler.Tables
             }
         }
 
+
+
         /// <summary>
-        /// This method reads the instruction and returns the binary code for the dest part of the instruction.
+        /// This method reads the instruction from Comp dictionary and returns the binary code for the dest part of the instruction.
         /// </summary>
         /// <param name="comp"></param>
         /// <returns>returns the binary code for the dest part of the instruction.</returns>

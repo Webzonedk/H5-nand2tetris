@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Compiler.Tools
 {
+    /// <summary>
+    /// This class is used to assemble the C-instruction into its binary code.
+    /// </summary>
     internal class CInstructionAssembler : ICInstructionAssembler
     {
         private readonly ICInstructionTable _instructionTable;
@@ -13,6 +16,13 @@ namespace Compiler.Tools
             _instructionTable = instructionTable;
         }
 
+
+
+        /// <summary>
+        /// This method assembles the C-instruction into its binary code.
+        /// </summary>
+        /// <param name="splittedInstruction"></param>
+        /// <returns>Returns a binary C-instruction.</returns>
         public string AssembleInstruction(CInstructionSplitter splittedInstruction)
         {
             // Attempt to convert mnemonics to binary codes, default if null.
@@ -43,6 +53,5 @@ namespace Compiler.Tools
 
             return instructionBuilder.ToString();
         }
-
     }
 }

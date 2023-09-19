@@ -2,13 +2,19 @@
 
 namespace Compiler.Tables
 {
+
+    /// <summary>
+    /// This class is used to store symbols and their addresses.
+    /// </summary>
     internal class SymbolsDynamicTable : ISymbolsDynamicTable
     {
-        // Initialize an empty dictionary to store symbols
-        private readonly Dictionary<string, int> _dynamicSymbolTable = new Dictionary<string, int>();
+
+        private Dictionary<string, int> _dynamicSymbolTable = new Dictionary<string, int>();
 
         // Variable to keep track of the highest address used
         private int _highestAddress = 15;
+
+
 
         /// <summary>
         /// Adds a symbol to the table.
@@ -30,6 +36,8 @@ namespace Compiler.Tables
             }
         }
 
+
+
         /// <summary>
         /// Reads the address of a given symbol.
         /// </summary>
@@ -47,15 +55,25 @@ namespace Compiler.Tables
             }
         }
 
+
+
         /// <summary>
         /// Finds and returns the next available address.
         /// </summary>
         /// <returns>The next available address.</returns>
         public int GetNextAvailableAddress()
         {
-            // Since we're keeping track of the highest address,
-            // the next available address would be _highestAddress + 1
             return _highestAddress + 1;
+        }
+
+
+        /// <summary>
+        /// This method clears the dictionary.
+        /// </summary>
+        public void ClearDictionary()
+        {
+            _dynamicSymbolTable.Clear();
+            _highestAddress = 15;
         }
     }
 }

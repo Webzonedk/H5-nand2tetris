@@ -1,5 +1,8 @@
 ﻿namespace Compiler.Interfaces
 {
+    /// <summary>
+    /// This interface is used to convert the C instructions to binary.
+    /// </summary>
     internal interface ICInstructionTable
     {
         public string? ConvertDest(string dest);

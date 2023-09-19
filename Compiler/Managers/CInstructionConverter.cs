@@ -1,13 +1,11 @@
 ﻿using Compiler.Interfaces;
 using Compiler.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compiler.Managers
 {
+    /// <summary>
+    /// This class converts a C-instruction to a binary instruction
+    /// </summary>
     internal class CInstructionConverter : ICInstructionConverter
     {
         private readonly ICInstructionAssembler _instructionAssembler;

@@ -43,6 +43,5 @@ namespace Compiler.Tools
 
             return this;
         }
-
     }
 }
