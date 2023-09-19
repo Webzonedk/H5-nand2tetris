@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "qrXvl1jL9e4OuDUkNpGoLtTW3DSPg23Q6BiQkmESa1wYwJQJxJmwP6jiqzl1IsajrhP33xecPcZCFilKK4g3Cg==",
+  "dgSpecHash": "ujPkdCzOC0Wr91Y3psktXRMQEYVleADNoNFv+JaPTjcMCOklblHs/oyAYBnHffx/TcYwRjGET3mTDdqIGbO/Eg==",
   "success": true,
   "projectFilePath": "C:\\Dev\\nand2tetris\\projects\\H5-nand2tetris\\Compiler\\Compiler.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Kent Pedersen\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\Kent Pedersen\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

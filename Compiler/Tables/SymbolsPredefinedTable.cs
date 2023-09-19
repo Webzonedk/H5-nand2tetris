@@ -2,7 +2,10 @@
 
 namespace Compiler.Tables
 {
-    public class SymbolsPredefinedTable : ISymbolsPredefinedTable
+    /// <summary>
+    /// This class is used to read the predefined symbols.
+    /// </summary>
+    internal class SymbolsPredefinedTable : ISymbolsPredefinedTable
     {
         private readonly Dictionary<string, int> _predefinedTable = new Dictionary<string, int>
         {
@@ -30,6 +33,7 @@ namespace Compiler.Tables
             {"THIS", 3 },
             {"THAT", 4 }
         };
+
 
 
         /// <summary>

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Compiler.Interfaces
+﻿namespace Compiler.Interfaces
 {
-    public interface IFileConverter
+    /// <summary>
+    /// This interface is used to convert the files from the folder.
+    /// </summary>
+    internal interface IFileConverter
     {
         public void Compiler();
 
