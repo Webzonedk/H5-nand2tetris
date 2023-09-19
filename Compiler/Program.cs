@@ -107,7 +107,6 @@ namespace Compiler
                             currentLineNumber--;
                         }
                         currentLineNumber++;
-
                     }
                 }
                 using (StreamReader reader = new StreamReader(filePath))
@@ -172,10 +171,6 @@ namespace Compiler
                     }
                     WriteToFile(newFilePath, fileContent);
                 }
-                //using (StreamWriter writer = new StreamWriter(newFilePath))
-                //{
-                //    writer.Write(fileContent.ToString());
-                //}
                 Console.WriteLine($" New file with name: {newFileName} has been created.\n");
             }
         }
