@@ -25,8 +25,16 @@ namespace Compiler.Managers
         /// <returns>Returns a binary C-instruction</returns>
         public string ConvertCInstruction(string instruction)
         {
+            try
+            {
             CInstructionSplitter splittedInstruction = _instructionSplitter.SplitLine(instruction);
             return _instructionAssembler.AssembleInstruction(splittedInstruction);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An error occured while converting c-instructions. Errorcode: {e}");
+                throw;
+            }
         }
     }
 }

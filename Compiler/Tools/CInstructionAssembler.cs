@@ -25,33 +25,38 @@ namespace Compiler.Tools
         /// <returns>Returns a binary C-instruction.</returns>
         public string AssembleInstruction(CInstructionSplitter splittedInstruction)
         {
-            // Attempt to convert mnemonics to binary codes, default if null.
-            string? comp = _instructionTable.ConvertComp(splittedInstruction.Comp);
-            string? dest = _instructionTable.ConvertDest(splittedInstruction.Dest);
-            string? jump = _instructionTable.ConvertJump(splittedInstruction.Jump);
-
-            // If any of the conversions returned null, default to specified strings.
-            if (comp == null)
+            try
             {
-                comp = "0000000";
-            }
-            if (dest == null)
-            {
-                dest = "000";
-            }
-            if (jump == null)
-            {
-                jump = "000";
-            }
+                string? comp = splittedInstruction?.Comp != null ? _instructionTable.ConvertComp(splittedInstruction.Comp) : null;
+                string? dest = splittedInstruction?.Dest != null ? _instructionTable.ConvertDest(splittedInstruction.Dest) : null;
+                string? jump = splittedInstruction?.Jump != null ? _instructionTable.ConvertJump(splittedInstruction.Jump) : null;
 
-            // Assemble the instruction using StringBuilder for better performance.
-            StringBuilder instructionBuilder = new StringBuilder();
-            instructionBuilder.Append("111");
-            instructionBuilder.Append(comp);
-            instructionBuilder.Append(dest);
-            instructionBuilder.Append(jump);
+                if (comp == null)
+                {
+                    comp = "0000000";
+                }
+                if (dest == null)
+                {
+                    dest = "000";
+                }
+                if (jump == null)
+                {
+                    jump = "000";
+                }
 
-            return instructionBuilder.ToString();
+                StringBuilder instructionBuilder = new StringBuilder();
+                instructionBuilder.Append("111");
+                instructionBuilder.Append(comp);
+                instructionBuilder.Append(dest);
+                instructionBuilder.Append(jump);
+
+                return instructionBuilder.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An error occured while assembling c-instructions. Errorcode: {e}");
+                throw;
+            }
         }
     }
 }

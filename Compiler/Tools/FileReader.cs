@@ -19,10 +19,8 @@ namespace Compiler.Tools
 
             try
             {
-                // Use the search pattern to get only .asm files
                 string[] filePaths = Directory.GetFiles(folderPath, "*.asm");
 
-                // Additional filter using LINQ to ensure only .asm files are considered
                 filePaths = filePaths.Where(path => Path.GetExtension(path).Equals(".asm", StringComparison.OrdinalIgnoreCase)).ToArray();
 
                 return filePaths;
@@ -30,7 +28,7 @@ namespace Compiler.Tools
             catch (Exception e)
             {
                 Console.WriteLine("Could not read files", e.ToString());
-                return null;
+                return Array.Empty<string>();
             }
         }
     }
