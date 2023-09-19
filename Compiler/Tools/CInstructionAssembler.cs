@@ -16,7 +16,6 @@ namespace Compiler.Tools
         public string AssembleInstruction(CInstructionSplitter splittedInstruction)
         {
             // Attempt to convert mnemonics to binary codes, default if null.
-            // Note: Ensure that these methods can handle null values gracefully, or add checks inside them.
             string? comp = _instructionTable.ConvertComp(splittedInstruction.Comp);
             string? dest = _instructionTable.ConvertDest(splittedInstruction.Dest);
             string? jump = _instructionTable.ConvertJump(splittedInstruction.Jump);
