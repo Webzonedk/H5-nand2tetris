@@ -1,4 +1,5 @@
 ﻿using Compiler.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace Compiler.Tools
 {
@@ -7,16 +8,28 @@ namespace Compiler.Tools
     /// </summary>
     internal class FileReader : IFileReader
     {
+        private readonly IConfiguration _configuration;
+
+
+        public FileReader(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+
+
         /// <summary>
         /// This method is used to get the files from the folder.
         /// </summary>
         /// <returns></returns>
         public string[] GetFilesFromFolder()
         {
-            //TODO: Add to appSettings.json
-            // Specify the folder path to look into the C: drive under Dev/CompilerFiles
-            string folderPath = @"C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\FilesToCompile";
-
+            string? folderPath = _configuration["FilePaths:ToCompile"];
+            if (folderPath == null)
+            {
+                Console.WriteLine("Folder path not found in configuration.");
+                return Array.Empty<string>();
+            }
             try
             {
                 string[] filePaths = Directory.GetFiles(folderPath, "*.asm");

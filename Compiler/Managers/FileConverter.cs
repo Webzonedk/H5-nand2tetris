@@ -1,4 +1,5 @@
 ﻿using Compiler.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System.Text;
 
 namespace Compiler.Managers
@@ -13,19 +14,22 @@ namespace Compiler.Managers
         private readonly ILabelsDynamicTable _labelsDynamicTable;
         private readonly ISymbolsDynamicTable _symbolsDynamicTable;
         private readonly ICInstructionConverter _cInstructionConverter;
+        private readonly IConfiguration _configuration;
 
         public FileConverter(
             IFileReader fileReader,
             ISymbolsPredefinedTable symbolsPredefinedTable,
             ILabelsDynamicTable labelsDynamicTable,
             ISymbolsDynamicTable symbolsDynamicTable,
-            ICInstructionConverter cInstructionConverter)
+            ICInstructionConverter cInstructionConverter,
+            IConfiguration configuration)
         {
             _fileReader = fileReader;
             _symbolsPredefinedTable = symbolsPredefinedTable;
             _labelsDynamicTable = labelsDynamicTable;
             _symbolsDynamicTable = symbolsDynamicTable;
             _cInstructionConverter = cInstructionConverter;
+            _configuration = configuration;
         }
 
 
@@ -61,10 +65,9 @@ namespace Compiler.Managers
                         Console.WriteLine($"Could not find directory for file: {Path.GetFileName(filePath)}");
                         continue;
                     }
-                    // TODO: add to appsettings.json
-                    string newDirectory = @"C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\FilesCompiled";
+                    string? newDirectory = _configuration["FilePaths:Compiled"];
                     string? newFileName = $"{fileNameWithoutExtension}.txt";
-                    string? newFilePath = Path.Combine(newDirectory, newFileName);
+                    string? newFilePath = newDirectory != null ? Path.Combine(newDirectory, newFileName) : null;
 
                     AddLabelsToDynamicTable(filePath);
 
@@ -94,7 +97,14 @@ namespace Compiler.Managers
 
                             ConvertToBinary(line, fileContent);
                         }
-                        WriteToFile(newFilePath, fileContent);
+                        if (newFilePath != null)
+                        {
+                            WriteToFile(newFilePath, fileContent);
+                        }
+                        else
+                        {
+                            throw new Exception($"Could not find directory for file: {Path.GetFileName(filePath)}");
+                        }
                     }
                     ClearDictionaries();
                     Console.WriteLine($" New file with name: {newFileName} has been created.\n");

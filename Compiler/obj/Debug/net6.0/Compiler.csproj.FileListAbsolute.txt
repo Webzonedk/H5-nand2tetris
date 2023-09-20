@@ -16,3 +16,15 @@ C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\obj\Debug\net6.0\ref\Compile
 C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\obj\Debug\net6.0\Compiler.csproj.CopyComplete
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\System.Text.Json.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Dev\nand2tetris\projects\H5-nand2tetris\Compiler\bin\Debug\net6.0\appsettings.json
