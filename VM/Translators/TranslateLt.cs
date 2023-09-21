@@ -8,5 +8,7 @@ namespace VM.Translators
 {
     internal class TranslateLt
     {
+
+        public TranslateLt() { }
     }
 }

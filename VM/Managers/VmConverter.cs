@@ -79,6 +79,9 @@ namespace VM.Managers
                             stringBuilder.AppendLine($"// unknown command: {line}"); //TODO: Add error to log instead of adding it to the file
                         }
                     }
+                    stringBuilder.AppendLine("(END)       // Setting label for the loop");
+                    stringBuilder.AppendLine("@END        // Set pointer to address");
+                    stringBuilder.AppendLine("0;JMP       // Goto @End");
                 }
                 _fileWriter.WriteToFile(fileNameWithoutExtension, stringBuilder);
             }

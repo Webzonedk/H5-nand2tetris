@@ -19,7 +19,7 @@ namespace VM.Mappers
         //private readonly ITranslateGt _translateGt;
         //private readonly ITranslateIfGoto _translateIfGoto;
         //private readonly ITranslateLabel _translateLabel;
-        //private readonly ITranslateLt _translateLt;
+        private readonly ITranslateLt _translateLt;
         //private readonly ITranslateNeg _translateNeg;
         //private readonly ITranslateNot _translateNot;
         //private readonly ITranslateOr _translateOr;
@@ -44,7 +44,7 @@ namespace VM.Mappers
             //ITranslateGt translateGt,
             //ITranslateIfGoto translateIfGoto,
             //ITranslateLabel translateLabel,
-            //ITranslateLt translateLt,
+            ITranslateLt translateLt,
             //ITranslateNeg translateNeg,
             //ITranslateNot translateNot,
             //ITranslateOr translateOr,
@@ -63,7 +63,7 @@ namespace VM.Mappers
             //_translateGt = translateGt;
             //_translateIfGoto = translateIfGoto;
             //_translateLabel = translateLabel;
-            //_translateLt = translateLt;
+            _translateLt = translateLt;
             //_translateNeg = translateNeg;
             //_translateNot = translateNot;
             //_translateOr = translateOr;
@@ -79,12 +79,12 @@ namespace VM.Mappers
         {
             CommandMap = new Dictionary<string, Action<StringBuilder>>
             {
-                {"add", _translateAdd.Translate}//,
+                {"add", _translateAdd.Translate},
                 //{"sub", _translateSub.Translate},
                 //{"neg", _translateNeg.Translate},
                 //{"eq", _translateEq.Translate},
                 //{"gt", _translateGt.Translate},
-                //{"lt", _translateLt.Translate},
+                {"lt", _translateLt.Translate},
                 //{"and", _translateAnd.Translate},
                 //{"or", _translateOr.Translate},
                 //{"not", _translateNot.Translate},

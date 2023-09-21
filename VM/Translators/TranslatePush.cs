@@ -24,15 +24,15 @@ namespace VM.Translators
         {
             if (location == "constant")
             {
-                stringBuilder.AppendLine($"@{value}   // Read value {value}");
+                stringBuilder.AppendLine($"@{value}          // Read value {value}");
                 stringBuilder.AppendLine("D=A         // Set D-register to value");
             }
             else
             {
                 string segmentPointer = _segmentHandler.TranslateSegment(location);
-                stringBuilder.AppendLine($"@{segmentPointer} // Go to segment {location}");
+                stringBuilder.AppendLine($"@{segmentPointer}             // Go to segment {location}");
                 stringBuilder.AppendLine("D=M           // D = base address of segment");
-                stringBuilder.AppendLine($"@{value}      // Read value {value}");
+                stringBuilder.AppendLine($"@{value}             // Read value {value}");
                 stringBuilder.AppendLine("A=D+A         // A = base address + offset");
                 stringBuilder.AppendLine("D=M           // D = value to push");
             }
