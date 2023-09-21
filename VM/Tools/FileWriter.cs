@@ -26,7 +26,7 @@ namespace VM.Tools
         public void WriteToFile(string fileNameWithoutExtension, StringBuilder fileContent)
         {
             string? newDirectory = _configuration["FilePaths:Compiled"];
-            string? newFileName = $"{fileNameWithoutExtension}.txt";
+            string? newFileName = $"{fileNameWithoutExtension}.asm";
             string? newFilePath = newDirectory != null ? Path.Combine(newDirectory, newFileName) : null;
             try
             {
