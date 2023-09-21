@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VM.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Compiler.Interfaces;
+using VM.Mappers;
 
 namespace VM.Managers
 {
@@ -13,21 +13,24 @@ namespace VM.Managers
     {
         private readonly IFileReader _fileReader;
         private readonly IFileWriter _fileWriter;
-        private readonly ICommandTable _commandTable;
+        private readonly ICommandMapper _commandMapper;
+
+
 
         public VmConverter(
             IFileReader fileReader,
             IFileWriter fileWriter,
-            ICommandTable commandTable)
+            ICommandMapper commandMapper
+            )
         {
             _fileReader = fileReader;
             _fileWriter = fileWriter;
-            _commandTable = commandTable;
+            _commandMapper = commandMapper;
         }
 
         public void Convert()
         {
-            ConvertVmToAssembly(ReadFile());
+            ConvertVmToAssembly(_fileReader.GetFilesFromFolder());
         }
 
 
@@ -51,80 +54,34 @@ namespace VM.Managers
                 using (StreamReader reader = new StreamReader(filePath))
                 {
                     string line;
-                    while ((line = reader.ReadLine()) != null)
+                    while ((line = reader.ReadLine()!) != null)
                     {
                         string[] splitLine = line.Split(" ");
-                        string command = splitLine[0];
-                        string location = splitLine[1];
-                        int value;
-                        if (!int.TryParse(splitLine[2], out value))
+                        string command = splitLine.Length > 0 ? splitLine[0] : string.Empty;
+                        string location = splitLine.Length > 1 ? splitLine[1] : string.Empty;
+                        string value = splitLine.Length > 2 ? splitLine[2] : string.Empty;
+
+
+                        if (_commandMapper.CommandMap.ContainsKey(command))
                         {
-                            value = 0;
+                            _commandMapper.CommandMap[command](stringBuilder);
                         }
-
-
-                        switch (command)
+                        else if (_commandMapper.CommandWithLocationAndValueMap.ContainsKey(command))
                         {
-                            case "push":
-                                _commandTable.HandlePush(location, value);
-                                break;
-                            case "pop":
-                                stringBuilder.Append(Pop(location, value));
-                                break;
-                            case "add":
-                                stringBuilder.Append(Add());
-                                break;
-                            case "sub":
-                                stringBuilder.Append(Sub());
-                                break;
-                            case "neg":
-                                stringBuilder.Append(Neg());
-                                break;
-                            case "eq":
-                                stringBuilder.Append(Eq());
-                                break;
-                            case "gt":
-                                stringBuilder.Append(Gt());
-                                break;
-                            case "lt":
-                                stringBuilder.Append(Lt());
-                                break;
-                            case "and":
-                                stringBuilder.Append(And());
-                                break;
-                            case "or":
-                                stringBuilder.Append(Or());
-                                break;
-                            case "not":
-                                stringBuilder.Append(Not());
-                                break;
-                            default:
-                                Console.WriteLine("Command not found");
-                                break;
+                            _commandMapper.CommandWithLocationAndValueMap[command](location, value, stringBuilder);
+                        }
+                        else if (_commandMapper.CommandWithLocationMap.ContainsKey(command))
+                        {
+                            _commandMapper.CommandWithLocationMap[command](location, stringBuilder);
+                        }
+                        else
+                        {
+                            stringBuilder.AppendLine($"// unknown command: {line}"); //TODO: Add error to log instead of adding it to the file
                         }
                     }
                 }
-
-
-
-                WriteToFile(fileNameWithoutExtension, stringBuilder);
+                _fileWriter.WriteToFile(fileNameWithoutExtension, stringBuilder);
             }
-
-
-            WriteToFile("test", new StringBuilder());
-        }
-        /// <summary>
-        /// This method reads the files from the folder.
-        /// </summary>
-        /// <returns>Returns an array of strings containing the file paths.</returns>
-        private string[] ReadFile()
-        {
-            return _fileReader.GetFilesFromFolder();
-        }
-
-        private void WriteToFile(string fileNameWithoutExtension, StringBuilder fileContent)
-        {
-            _fileWriter.WriteToFile(fileNameWithoutExtension, fileContent);
         }
     }
 }

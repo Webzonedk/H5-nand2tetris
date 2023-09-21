@@ -1,7 +1,7 @@
-﻿using Compiler.Interfaces;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using VM.Interfaces;
 
-namespace Compiler.Tools
+namespace VM.Tools
 {
     /// <summary>
     /// This class is used to read the files from the folder.
@@ -32,9 +32,9 @@ namespace Compiler.Tools
             }
             try
             {
-                string[] filePaths = Directory.GetFiles(folderPath, "*.asm");
+                string[] filePaths = Directory.GetFiles(folderPath, "*.vm");
 
-                filePaths = filePaths.Where(path => Path.GetExtension(path).Equals(".asm", StringComparison.OrdinalIgnoreCase)).ToArray();
+                filePaths = filePaths.Where(path => Path.GetExtension(path).Equals(".vm", StringComparison.OrdinalIgnoreCase)).ToArray();
 
                 return filePaths;
             }

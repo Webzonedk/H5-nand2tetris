@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-
-
-using System.Drawing;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using VM.Interfaces;
 using VM.Managers;
+using VM.Mappers;
+using VM.Tools;
+using VM.Translators;
+
 
 namespace VM
 {
@@ -33,15 +34,28 @@ namespace VM
 
             var serviceProvider = new ServiceCollection()
                 .AddSingleton(Configuration)
-                //.AddTransient<IFileReader, FileReader>()
                 .AddTransient<IVmConverter, VmConverter>()
-                //.AddTransient<ISymbolsDynamicTable, SymbolsDynamicTable>()
-                //.AddTransient<ISymbolsPredefinedTable, SymbolsPredefinedTable>()
-                //.AddTransient<ICInstructionTable, CInstructionTable>()
-                //.AddTransient<ICInstructionSplitter, CInstructionSplitter>()
-                //.AddTransient<ICInstructionAssembler, CInstructionAssembler>()
-                //.AddTransient<ICInstructionConverter, CInstructionConverter>()
-                //.AddTransient<ILabelsDynamicTable, LabelsDynamicTable>()
+                .AddTransient<IFileReader, FileReader>()
+                .AddTransient<IFileWriter, FileWriter>()
+                .AddTransient<ISegmentHandler, SegmentHandler>()
+                .AddTransient<ITranslateAdd, TranslateAdd>()
+                .AddTransient<ICommandMapper, CommandMapper>()
+                //.AddTransient<ITranslateSub, TranslateSub>()
+                //.AddTransient<ITranslateNeg, TranslateNeg>()
+                //.AddTransient<ITranslateEq, TranslateEq>()
+                //.AddTransient<ITranslateGt, TranslateGt>()
+                //.AddTransient<ITranslateLt, TranslateLt>()
+                //.AddTransient<ITranslateAnd, TranslateAnd>()
+                //.AddTransient<ITranslateOr, TranslateOr>()
+                //.AddTransient<ITranslateNot, TranslateNot>()
+                .AddTransient<ITranslatePush, TranslatePush>()
+                .AddTransient<ITranslatePop, TranslatePop>()
+                //.AddTransient<ITranslateLabel, TranslateLabel>()
+                //.AddTransient<ITranslateGoto, TranslateGoto>()
+                //.AddTransient<ITranslateIfGoto, TranslateIfGoto>()
+                //.AddTransient<ITranslateFunction, TranslateFunction>()
+                //.AddTransient<ITranslateCall, TranslateCall>()
+                //.AddTransient<ITranslateReturn, TranslateReturn>()
                 .AddTransient<Program, Program>()
                 .BuildServiceProvider();
 
