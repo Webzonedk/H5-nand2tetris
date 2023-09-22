@@ -9,6 +9,9 @@ using VM.Translators;
 
 namespace VM
 {
+    /// <summary>
+    /// This is the main class of the program. It is responsible for the dependency injection and the running of the program.
+    /// </summary>
     class Program
     {
         private readonly IVmConverter _vmConverter;
@@ -21,7 +24,7 @@ namespace VM
 
 
         /// <summary>
-        /// This is the main method of the program. addin dependencyinjections
+        /// This is the main method of the program. adding dependency injections
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
@@ -37,6 +40,7 @@ namespace VM
                 .AddTransient<IVmConverter, VmConverter>()
                 .AddTransient<IFileReader, FileReader>()
                 .AddTransient<IFileWriter, FileWriter>()
+                .AddTransient<ILogFileWriter, LogFileWriter>()
                 .AddTransient<ICommandMapper, CommandMapper>()
                 .AddTransient<ISegmentHandler, SegmentHandler>()
                 .AddTransient<ITranslateAdd, TranslateAdd>()
@@ -50,6 +54,7 @@ namespace VM
                 .AddTransient<ITranslateNot, TranslateNot>()
                 .AddTransient<ITranslatePush, TranslatePush>()
                 .AddTransient<ITranslatePop, TranslatePop>()
+                .AddTransient<ITranslateEndLoop, TranslateEndLoop>()
                 //.AddTransient<ITranslateLabel, TranslateLabel>()
                 //.AddTransient<ITranslateGoto, TranslateGoto>()
                 //.AddTransient<ITranslateIfGoto, TranslateIfGoto>()
@@ -71,7 +76,6 @@ namespace VM
         public void Run()
         {
             _vmConverter.Convert();
-            //Console.WriteLine("Press any key to exit...");
         }
     }
 }

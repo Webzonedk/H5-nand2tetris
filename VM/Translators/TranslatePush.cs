@@ -1,25 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using VM.Interfaces;
 using VM.Tools;
 
 namespace VM.Translators
 {
+    /// <summary>
+    /// This class is responsible for translating the push command from the vm language to assembly
+    /// </summary>
     internal class TranslatePush : ITranslatePush
     {
 
         private readonly ISegmentHandler _segmentHandler;
+        private readonly ILogFileWriter _logFileWriter;
 
 
-        public TranslatePush(ISegmentHandler segmentHandler)
+        public TranslatePush(ISegmentHandler segmentHandler, ILogFileWriter logFileWriter)
         {
             _segmentHandler = segmentHandler;
+            _logFileWriter = logFileWriter;
         }
 
-
+        /// <summary>
+        /// This method translates the push command from the vm language to assembly
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="value"></param>
+        /// <param name="stringBuilder"></param>
         public void Translate(string location, string value, StringBuilder stringBuilder)
         {
             // If the location is a constant, load the constant value into D-register
@@ -41,16 +47,36 @@ namespace VM.Translators
                 string segmentPointer = _segmentHandler.TranslateSegment(location, value);
                 if (location == "static")
                 {
-                    stringBuilder.AppendLine($"@{int.Parse(segmentPointer) + int.Parse(value)}");  // Go to the static address
+                    if(!int.TryParse(segmentPointer,out int segmentPointerAsInteger))
+                    {
+                        _logFileWriter.WriteLog($"{DateTime.Now} - Error: Failed to parse segmentPointer to integer in a push static instruction.");
+                        Environment.Exit(1);
+                    }
+                    if(!int.TryParse(value,out int valueAsInteger))
+                    {
+                        _logFileWriter.WriteLog($"{DateTime.Now} - Error: Failed to parse value to integer in a push static instruction.");
+                        Environment.Exit(1);
+                    }
+                    stringBuilder.AppendLine($"@{segmentPointerAsInteger + valueAsInteger}");  // Go to the static address
                     stringBuilder.AppendLine("D=M");  // D = value at static address
                 }
                 else
                 {
                     if (location == "temp")
                     {
+                        if (!int.TryParse(segmentPointer, out int segmentPointerAsInteger))
+                        {
+                            _logFileWriter.WriteLog($"{DateTime.Now} - Error: Failed to parse segmentPointer to integer in a push temp instruction.");
+                            Environment.Exit(1);
+                        }
+                        if (!int.TryParse(value, out int valueAsInteger))
+                        {
+                            _logFileWriter.WriteLog($"{DateTime.Now} - Error: Failed to parse value to integer in a push temp instruction.");
+                            Environment.Exit(1);
+                        }
                         stringBuilder.AppendLine($"@R{segmentPointer}");  // Go to segment base address
                         stringBuilder.AppendLine("D=M");  // D = base address of segment
-                        stringBuilder.AppendLine($"@{int.Parse(value) + int.Parse(segmentPointer)}");  // Go to offset
+                        stringBuilder.AppendLine($"@{segmentPointerAsInteger + valueAsInteger}");  // Go to offset
                     }
                     else
                     {

@@ -2,6 +2,9 @@
 
 namespace VM.Interfaces
 {
+    /// <summary>
+    /// This interface is responsible for mapping the commands to the correct translation class
+    /// </summary>
     internal interface ICommandMapper
     {
         Dictionary<string, Action<StringBuilder>> CommandMap { get; }

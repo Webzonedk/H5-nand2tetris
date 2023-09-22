@@ -1,0 +1,2 @@
+22-09-2023 17:12:25: ERROR - 22-09-2023 19:12:25 - Error: An error occured in the segmentHandler. No valid segment was recognized
+22-09-2023 17:14:18: ERROR - 22-09-2023 19:14:18 - Error: An error occurred in the segmentHandler. Pointer value is invalid

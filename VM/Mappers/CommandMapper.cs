@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using VM.Interfaces;
 
 namespace VM.Mappers
 {
+    /// <summary>
+    /// This class is responsible for mapping the commands to the correct translator
+    /// </summary>
     internal class CommandMapper : ICommandMapper
     {
         private readonly ITranslateAdd _translateAdd;
@@ -47,12 +46,12 @@ namespace VM.Mappers
             ITranslatePop translatePop,
             ITranslatePush translatePush,
             ITranslateSub translateSub
-            //ITranslateCall translateCall,
-            //ITranslateFunction translateFunction,
-            //ITranslateGoto translateGoto,
-            //ITranslateIfGoto translateIfGoto,
-            //ITranslateLabel translateLabel,
-            //ITranslateReturn translateReturn,
+        //ITranslateCall translateCall,
+        //ITranslateFunction translateFunction,
+        //ITranslateGoto translateGoto,
+        //ITranslateIfGoto translateIfGoto,
+        //ITranslateLabel translateLabel,
+        //ITranslateReturn translateReturn,
         )
         {
             _translateAdd = translateAdd;
@@ -75,7 +74,9 @@ namespace VM.Mappers
             InitializeCommandMaps();
         }
 
-
+        /// <summary>
+        /// This method initializes the command maps
+        /// </summary>
         private void InitializeCommandMaps()
         {
             CommandMap = new Dictionary<string, Action<StringBuilder>>

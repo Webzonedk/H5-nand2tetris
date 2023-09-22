@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using VM.Interfaces;
 
 namespace VM.Translators
 {
+    /// <summary>
+    /// This class is responsible for translating the or command from the vm language to assembly
+    /// </summary>
     internal class TranslateOr : ITranslateOr
     {
+        /// <summary>
+        /// This method translates the or command from the vm language to assembly
+        /// </summary>
+        /// <param name="stringBuilder"></param>
         public void Translate(StringBuilder stringBuilder)
         {
             // Point to the stack pointer and decrease it

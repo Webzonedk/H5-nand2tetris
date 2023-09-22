@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VM.Interfaces
+﻿namespace VM.Interfaces
 {
+    /// <summary>
+    /// This interface is responsible for converting vm commands to assembly
+    /// </summary>
     internal interface IVmConverter
     {
         public void Convert();

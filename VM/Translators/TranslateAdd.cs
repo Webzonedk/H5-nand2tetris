@@ -10,7 +10,7 @@ namespace VM.Translators
     {
 
         /// <summary>
-        /// This method is translating the add command from the VM language to assembly.
+        /// This method is responsible for translating the add command from the VM language to assembly.
         /// </summary>
         /// <param name="stringBuilder"></param>
         public void Translate(StringBuilder stringBuilder)

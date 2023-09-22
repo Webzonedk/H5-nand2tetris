@@ -9,11 +9,13 @@ namespace VM.Tools
     internal class FileReader : IFileReader
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogFileWriter _logFileWriter;
 
 
-        public FileReader(IConfiguration configuration)
+        public FileReader(IConfiguration configuration, ILogFileWriter logFileWriter)
         {
             _configuration = configuration;
+            _logFileWriter = logFileWriter;
         }
 
 
@@ -40,7 +42,7 @@ namespace VM.Tools
             }
             catch (Exception e)
             {
-                Console.WriteLine("Could not read files", e.ToString());
+                _logFileWriter.WriteLog($"{DateTime.Now} - Error: An error occurred in FileReader. Error code: {e}");
                 return Array.Empty<string>();
             }
         }

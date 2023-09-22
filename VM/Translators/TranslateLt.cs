@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using VM.Interfaces;
 
 namespace VM.Translators
 {
+    /// <summary>
+    /// This class is responsible for translating the lt command from the vm language to assembly
+    /// </summary>
     internal class TranslateLt : ITranslateLt
     {
+        /// <summary>
+        /// This method translates the lt command from the vm language to assembly
+        /// </summary>
+        /// <param name="uniqueLabelId"></param>
+        /// <param name="stringBuilder"></param>
         public void Translate(int uniqueLabelId, StringBuilder stringBuilder)
         {
             // Generate unique labels for this operation

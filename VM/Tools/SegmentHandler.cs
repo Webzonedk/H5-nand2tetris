@@ -1,13 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VM.Interfaces;
 
 namespace VM.Tools
 {
+    /// <summary>
+    /// This class is responsible for translating the segment command from the vm language to assembly
+    /// </summary>
     internal class SegmentHandler : ISegmentHandler
     {
+        private readonly ILogFileWriter _logFileWriter;
+
+
+        public SegmentHandler(ILogFileWriter logFileWriter)
+        {
+            _logFileWriter = logFileWriter;
+        }
+        /// <summary>
+        /// This method is responsible for translating the segment command from the vm language to assembly
+        /// </summary>
+        /// <param name="segment"></param>
+        /// <param name="value"></param>
+        /// <returns>Returns the translated segment</returns>
+        /// <exception cref="ArgumentException"></exception>
         public string TranslateSegment(string segment, string value)
         {
             switch (segment)
@@ -20,11 +33,19 @@ namespace VM.Tools
                     return "THIS";
                 case "pointer":
                     if (value == "0")
+                    {
                         return "THIS";
+                    }
                     else if (value == "1")
+                    {
                         return "THAT";
+                    }
                     else
-                        throw new ArgumentException("Invalid pointer value");
+                    {
+                        _logFileWriter.WriteLog($"{DateTime.Now} - Error: An error occurred in the segmentHandler. Pointer value is invalid");
+                        Environment.Exit(1);
+                        return null;
+                    }
                 case "that":
                     return "THAT";
                 case "temp":
@@ -32,7 +53,9 @@ namespace VM.Tools
                 case "static":
                     return "16";
                 default:
-                    throw new ArgumentException("Invalid segment");
+                    _logFileWriter.WriteLog($"{DateTime.Now} - Error: An error occurred in the segmentHandler. No valid segment was recognized");
+                    Environment.Exit(1);
+                    return null;
             }
         }
     }

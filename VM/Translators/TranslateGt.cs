@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using VM.Interfaces;
 
 namespace VM.Translators
 {
+    /// <summary>
+    /// This class is responsible for translating the gt command from the vm language to assembly
+    /// </summary>
     internal class TranslateGt : ITranslateGt
     {
-
+        /// <summary>
+        /// This method translates the gt command from the vm language to assembly
+        /// </summary>
+        /// <param name="uniqueLabelId"></param>
+        /// <param name="stringBuilder"></param>
         public void Translate(int uniqueLabelId, StringBuilder stringBuilder)
         {
             // Unique labels for this specific "gt" operation

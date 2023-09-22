@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using VM.Interfaces;
 
 namespace VM.Translators
 {
+    /// <summary>
+    /// This class is responsible for translating the neg command from the vm language to assembly
+    /// </summary>
     internal class TranslateNeg : ITranslateNeg
     {
-
+        /// <summary>
+        /// This method translates the neg command from the vm language to assembly
+        /// </summary>
+        /// <param name="stringBuilder"></param>
         public void Translate(StringBuilder stringBuilder)
         {
             // Set D-register to 0

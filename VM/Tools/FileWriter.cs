@@ -1,22 +1,23 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using VM.Interfaces;
 
 namespace VM.Tools
 {
+    /// <summary>
+    /// This class is responsible for writing the file
+    /// </summary>
     internal class FileWriter : IFileWriter
     {
 
         private readonly IConfiguration _configuration;
+        private readonly ILogFileWriter _logFileWriter;
 
 
-        public FileWriter(IConfiguration configuration)
+        public FileWriter(IConfiguration configuration, ILogFileWriter logFileWriter)
         {
             _configuration = configuration;
+            _logFileWriter = logFileWriter;
         }
         /// <summary>
         /// This method writes the content to the file.
@@ -32,7 +33,7 @@ namespace VM.Tools
             {
                 if (newFilePath == null)
                 {
-                    Console.WriteLine("Could not find the path to write to."); //TODO: Add
+                    _logFileWriter.WriteLog($"{DateTime.Now} - Error: An error occurred while trying to write to the file. Could not find the path to write to. Selected file path is: {newFilePath}");
                     return;
                 }
                 using (StreamWriter writer = new StreamWriter(newFilePath))
@@ -42,7 +43,7 @@ namespace VM.Tools
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occured while trying to write to the file: {newFilePath}, Errorcode: {e}");
+                _logFileWriter.WriteLog($"{DateTime.Now} - Error: An error occurred while trying to write to the file: {newFilePath}, Error code: {e}");
             }
         }
     }

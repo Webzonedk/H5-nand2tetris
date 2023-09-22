@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using VM.Interfaces;
 
 namespace VM.Translators
 {
+    /// <summary>
+    /// This class is responsible for translating the sub command from the vm language to assembly
+    /// </summary>
     internal class TranslateSub : ITranslateSub
     {
+        /// <summary>
+        /// This method translates the sub command from the vm language to assembly
+        /// </summary>
+        /// <param name="stringBuilder"></param>
         public void Translate(StringBuilder stringBuilder)
         {
             // Go to stack pointer and decrease it to pop the first value into D
