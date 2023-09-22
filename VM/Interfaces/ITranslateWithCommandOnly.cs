@@ -2,7 +2,7 @@
 
 namespace VM.Interfaces
 {
-    internal interface ITranslateAdd
+    internal interface ITranslateWithCommandOnly
     {
         void Translate(StringBuilder stringBuilder);
     }

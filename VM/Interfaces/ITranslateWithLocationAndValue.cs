@@ -2,7 +2,7 @@
 
 namespace VM.Interfaces
 {
-    internal interface ITranslatePop
+    internal interface ITranslateWithLocationAndValue
     {
         void Translate(string location, string value, StringBuilder stringBuilder);
     }

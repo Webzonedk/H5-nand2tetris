@@ -37,19 +37,19 @@ namespace VM
                 .AddTransient<IVmConverter, VmConverter>()
                 .AddTransient<IFileReader, FileReader>()
                 .AddTransient<IFileWriter, FileWriter>()
-                .AddTransient<ISegmentHandler, SegmentHandler>()
-                .AddTransient<ITranslateAdd, TranslateAdd>()
                 .AddTransient<ICommandMapper, CommandMapper>()
-                //.AddTransient<ITranslateSub, TranslateSub>()
-                //.AddTransient<ITranslateNeg, TranslateNeg>()
-                //.AddTransient<ITranslateEq, TranslateEq>()
-                //.AddTransient<ITranslateGt, TranslateGt>()
-                //.AddTransient<ITranslateLt, TranslateLt>()
-                //.AddTransient<ITranslateAnd, TranslateAnd>()
-                //.AddTransient<ITranslateOr, TranslateOr>()
-                //.AddTransient<ITranslateNot, TranslateNot>()
-                .AddTransient<ITranslatePush, TranslatePush>()
-                .AddTransient<ITranslatePop, TranslatePop>()
+                .AddTransient<ISegmentHandler, SegmentHandler>()
+                .AddTransient<ITranslateWithCommandOnly, TranslateAdd>()
+                .AddTransient<ITranslateWithCommandOnly, TranslateSub>()
+                .AddTransient<ITranslateWithCommandOnly, TranslateNeg>()
+                .AddTransient<ITranslateWithUniqueCounter, TranslateEq>()
+                .AddTransient<ITranslateWithUniqueCounter, TranslateGt>()
+                .AddTransient<ITranslateWithUniqueCounter, TranslateLt>()
+                .AddTransient<ITranslateWithCommandOnly, TranslateAnd>()
+                .AddTransient<ITranslateWithCommandOnly, TranslateOr>()
+                .AddTransient<ITranslateWithCommandOnly, TranslateNot>()
+                .AddTransient<ITranslateWithLocationAndValue, TranslatePush>()
+                .AddTransient<ITranslateWithLocationAndValue, TranslatePop>()
                 //.AddTransient<ITranslateLabel, TranslateLabel>()
                 //.AddTransient<ITranslateGoto, TranslateGoto>()
                 //.AddTransient<ITranslateIfGoto, TranslateIfGoto>()
@@ -59,7 +59,6 @@ namespace VM
                 .AddTransient<Program, Program>()
                 .BuildServiceProvider();
 
-            // Create an instance of Program and resolve its dependencies
             var program = ActivatorUtilities.CreateInstance<Program>(serviceProvider);
             program.Run();
         }

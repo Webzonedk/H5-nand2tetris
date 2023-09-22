@@ -4,73 +4,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VM.Interfaces;
-using VM.Translators;
 
 namespace VM.Mappers
 {
     internal class CommandMapper : ICommandMapper
     {
-        private readonly ITranslateAdd _translateAdd;
-        //private readonly ITranslateAnd _translateAnd;
+        private readonly ITranslateWithCommandOnly _translateAdd;
+        private readonly ITranslateWithCommandOnly _translateAnd;
         //private readonly ITranslateCall _translateCall;
-        //private readonly ITranslateEq _translateEq;
+        private readonly ITranslateWithUniqueCounter _translateEq;
         //private readonly ITranslateFunction _translateFunction;
         //private readonly ITranslateGoto _translateGoto;
-        //private readonly ITranslateGt _translateGt;
+        private readonly ITranslateWithUniqueCounter _translateGt;
         //private readonly ITranslateIfGoto _translateIfGoto;
         //private readonly ITranslateLabel _translateLabel;
-        private readonly ITranslateLt _translateLt;
-        //private readonly ITranslateNeg _translateNeg;
-        //private readonly ITranslateNot _translateNot;
-        //private readonly ITranslateOr _translateOr;
-        private readonly ITranslatePop _translatePop;
-        private readonly ITranslatePush _translatePush;
+        private readonly ITranslateWithUniqueCounter _translateLt;
+        private readonly ITranslateWithCommandOnly _translateNeg;
+        private readonly ITranslateWithCommandOnly _translateNot;
+        private readonly ITranslateWithCommandOnly _translateOr;
+        private readonly ITranslateWithLocationAndValue _translatePop;
+        private readonly ITranslateWithLocationAndValue _translatePush;
         //private readonly ITranslateReturn _translateReturn;
-        //private readonly ITranslateSub _translateSub;
+        private readonly ITranslateWithCommandOnly _translateSub;
 
 
         public Dictionary<string, Action<StringBuilder>> CommandMap { get; private set; }
+        public Dictionary<string, Action<int, StringBuilder>> CommandMapWithUniqueCounter { get; private set; }
+
         public Dictionary<string, Action<string, string, StringBuilder>> CommandWithLocationAndValueMap { get; private set; }
         public Dictionary<string, Action<string, StringBuilder>> CommandWithLocationMap { get; private set; }
 
 
         public CommandMapper(
-            ITranslateAdd translateAdd,
-            //ITranslateAnd translateAnd,
+            ITranslateWithCommandOnly translateAdd,
+            ITranslateWithCommandOnly translateAnd,
             //ITranslateCall translateCall,
-            //ITranslateEq translateEq,
+            ITranslateWithUniqueCounter translateEq,
             //ITranslateFunction translateFunction,
             //ITranslateGoto translateGoto,
-            //ITranslateGt translateGt,
+            ITranslateWithUniqueCounter translateGt,
             //ITranslateIfGoto translateIfGoto,
             //ITranslateLabel translateLabel,
-            ITranslateLt translateLt,
-            //ITranslateNeg translateNeg,
-            //ITranslateNot translateNot,
-            //ITranslateOr translateOr,
-            ITranslatePop translatePop,
-            ITranslatePush translatePush//,
-            //ITranslateReturn translateReturn,
-            //ITranslateSub translateSub
+            ITranslateWithUniqueCounter translateLt,
+            ITranslateWithCommandOnly translateNeg,
+            ITranslateWithCommandOnly translateNot,
+            ITranslateWithCommandOnly translateOr,
+            ITranslateWithLocationAndValue translatePop,
+            ITranslateWithLocationAndValue translatePush,
+                                        //ITranslateReturn translateReturn,
+                                        ITranslateWithCommandOnly translateSub
         )
         {
             _translateAdd = translateAdd;
-            //_translateAnd = translateAnd;
+            _translateAnd = translateAnd;
             //_translateCall = translateCall;
-            //_translateEq = translateEq;
+            _translateEq = translateEq;
             //_translateFunction = translateFunction;
             //_translateGoto = translateGoto;
-            //_translateGt = translateGt;
+            _translateGt = translateGt;
             //_translateIfGoto = translateIfGoto;
             //_translateLabel = translateLabel;
             _translateLt = translateLt;
-            //_translateNeg = translateNeg;
-            //_translateNot = translateNot;
-            //_translateOr = translateOr;
+            _translateNeg = translateNeg;
+            _translateNot = translateNot;
+            _translateOr = translateOr;
             _translatePop = translatePop;
             _translatePush = translatePush;
             //_translateReturn = translateReturn;
-            //_translateSub = translateSub;
+            _translateSub = translateSub;
             InitializeCommandMaps();
         }
 
@@ -80,16 +81,26 @@ namespace VM.Mappers
             CommandMap = new Dictionary<string, Action<StringBuilder>>
             {
                 {"add", _translateAdd.Translate},
-                //{"sub", _translateSub.Translate},
-                //{"neg", _translateNeg.Translate},
-                //{"eq", _translateEq.Translate},
-                //{"gt", _translateGt.Translate},
-                {"lt", _translateLt.Translate},
-                //{"and", _translateAnd.Translate},
-                //{"or", _translateOr.Translate},
-                //{"not", _translateNot.Translate},
+                {"sub", _translateSub.Translate},
+                {"neg", _translateNeg.Translate},
+
+
+                {"and", _translateAnd.Translate},
+                {"or", _translateOr.Translate},
+                {"not", _translateNot.Translate},
                 //{"return", _translateReturn.Translate}
             };
+
+
+
+            CommandMapWithUniqueCounter = new Dictionary<string, Action<int, StringBuilder>>
+            {
+                {"lt", _translateLt.Translate},
+                {"eq", _translateEq.Translate},
+                {"gt", _translateGt.Translate},
+            };
+
+
 
             CommandWithLocationAndValueMap = new Dictionary<string, Action<string, string, StringBuilder>>
             {
@@ -98,6 +109,8 @@ namespace VM.Mappers
                 //{"function", _translateFunction.Translate},
                 //{"call", _translateCall.Translate}
             };
+
+
 
             CommandWithLocationMap = new Dictionary<string, Action<string, StringBuilder>>
             {

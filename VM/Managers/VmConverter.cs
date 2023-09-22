@@ -53,6 +53,7 @@ namespace VM.Managers
 
                 using (StreamReader reader = new StreamReader(filePath))
                 {
+                    int uniqueCounter = 0;
                     string line;
                     while ((line = reader.ReadLine()!) != null)
                     {
@@ -61,10 +62,18 @@ namespace VM.Managers
                         string location = splitLine.Length > 1 ? splitLine[1] : string.Empty;
                         string value = splitLine.Length > 2 ? splitLine[2] : string.Empty;
 
-
-                        if (_commandMapper.CommandMap.ContainsKey(command))
+                        if (String.IsNullOrWhiteSpace(line) || line.StartsWith("//"))
+                        {
+                            continue;
+                        }
+                        else if (_commandMapper.CommandMap.ContainsKey(command))
                         {
                             _commandMapper.CommandMap[command](stringBuilder);
+                        }
+                        else if (_commandMapper.CommandMapWithUniqueCounter.ContainsKey(command))
+                        {
+                            _commandMapper.CommandMapWithUniqueCounter[command](uniqueCounter, stringBuilder);
+                            uniqueCounter++;
                         }
                         else if (_commandMapper.CommandWithLocationAndValueMap.ContainsKey(command))
                         {
@@ -76,12 +85,12 @@ namespace VM.Managers
                         }
                         else
                         {
-                            stringBuilder.AppendLine($"// unknown command: {line}"); //TODO: Add error to log instead of adding it to the file
+                            Console.WriteLine($"{DateTime.Now} - Error: Unknown command in file:{filePath} The error occured in this command: {line}"); //TODO: Add error to log instead of adding it to the file
                         }
                     }
-                    stringBuilder.AppendLine("(END)       // Setting label for the loop");
-                    stringBuilder.AppendLine("@END        // Set pointer to address");
-                    stringBuilder.AppendLine("0;JMP       // Goto @End");
+                    stringBuilder.AppendLine("(END)");       // Setting label for the loop
+                    stringBuilder.AppendLine("@END");        // Set pointer to address
+                    stringBuilder.AppendLine("0;JMP");       // Goto @End
                 }
                 _fileWriter.WriteToFile(fileNameWithoutExtension, stringBuilder);
             }

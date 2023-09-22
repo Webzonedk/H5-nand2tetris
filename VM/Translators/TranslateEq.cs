@@ -7,27 +7,26 @@ using VM.Interfaces;
 
 namespace VM.Translators
 {
-    internal class TranslateGt : ITranslateWithUniqueCounter
+    internal class TranslateEq : ITranslateWithUniqueCounter
     {
-
         public void Translate(int uniqueLabelId, StringBuilder stringBuilder)
         {
-            // Unique labels for this specific "gt" operation
+            // Generate unique labels for this specific EQ operation
             string falseLabel = $"FALSE{uniqueLabelId}";
             string continueLabel = $"CONTINUE{uniqueLabelId}";
 
-            // Decrease stack pointer and pop value into D-register
+            // Go to stack pointer and decrease it to pop the first value into D
             stringBuilder.AppendLine("@SP");
             stringBuilder.AppendLine("AM=M-1");
             stringBuilder.AppendLine("D=M");
 
-            // Point to the next top of stack and subtract D from it
+            // Point to the next top of the stack and subtract D from it
             stringBuilder.AppendLine("A=A-1");
             stringBuilder.AppendLine("D=M-D");
 
-            // Jump to FALSE label if D <= 0
+            // Jump to FALSE label if D is not zero (i.e., the two values are not equal)
             stringBuilder.AppendLine($"@{falseLabel}");
-            stringBuilder.AppendLine("D;JLE");
+            stringBuilder.AppendLine("D;JNE");
 
             // Set the top of the stack to -1 (True)
             stringBuilder.AppendLine("@SP");
@@ -47,5 +46,6 @@ namespace VM.Translators
             // CONTINUE label
             stringBuilder.AppendLine($"({continueLabel})");
         }
+
     }
 }

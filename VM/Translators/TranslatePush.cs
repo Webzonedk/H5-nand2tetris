@@ -8,7 +8,7 @@ using VM.Tools;
 
 namespace VM.Translators
 {
-    internal class TranslatePush : ITranslatePush
+    internal class TranslatePush : ITranslateWithLocationAndValue
     {
 
         private readonly ISegmentHandler _segmentHandler;
@@ -22,25 +22,34 @@ namespace VM.Translators
 
         public void Translate(string location, string value, StringBuilder stringBuilder)
         {
+            // If the location is a constant, directly load the value into D
             if (location == "constant")
             {
-                stringBuilder.AppendLine($"@{value}          // Read value {value}");
-                stringBuilder.AppendLine("D=A         // Set D-register to value");
+                stringBuilder.AppendLine($"@{value}");
+                stringBuilder.AppendLine("D=A");
             }
             else
             {
+                // Translate the segment and load its base address into D
                 string segmentPointer = _segmentHandler.TranslateSegment(location);
-                stringBuilder.AppendLine($"@{segmentPointer}             // Go to segment {location}");
-                stringBuilder.AppendLine("D=M           // D = base address of segment");
-                stringBuilder.AppendLine($"@{value}             // Read value {value}");
-                stringBuilder.AppendLine("A=D+A         // A = base address + offset");
-                stringBuilder.AppendLine("D=M           // D = value to push");
+                stringBuilder.AppendLine($"@{segmentPointer}");
+                stringBuilder.AppendLine("D=M");
+
+                // Add the offset to the base address and load the value into D
+                stringBuilder.AppendLine($"@{value}");
+                stringBuilder.AppendLine("A=D+A");
+                stringBuilder.AppendLine("D=M");
             }
-            stringBuilder.AppendLine("@SP         // Go to stack pointer");
-            stringBuilder.AppendLine("A=M         // Point to top of stack");
-            stringBuilder.AppendLine("M=D         // Push value to stack");
-            stringBuilder.AppendLine("@SP         // Go back to stack pointer");
-            stringBuilder.AppendLine("M=M+1       // Increase stack pointer");
+
+            // Push the value in D onto the stack
+            stringBuilder.AppendLine("@SP");
+            stringBuilder.AppendLine("A=M");
+            stringBuilder.AppendLine("M=D");
+
+            // Increment the stack pointer
+            stringBuilder.AppendLine("@SP");
+            stringBuilder.AppendLine("M=M+1");
         }
+
     }
 }
