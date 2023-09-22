@@ -39,17 +39,17 @@ namespace VM
                 .AddTransient<IFileWriter, FileWriter>()
                 .AddTransient<ICommandMapper, CommandMapper>()
                 .AddTransient<ISegmentHandler, SegmentHandler>()
-                .AddTransient<ITranslateWithCommandOnly, TranslateAdd>()
-                .AddTransient<ITranslateWithCommandOnly, TranslateSub>()
-                .AddTransient<ITranslateWithCommandOnly, TranslateNeg>()
-                .AddTransient<ITranslateWithUniqueCounter, TranslateEq>()
-                .AddTransient<ITranslateWithUniqueCounter, TranslateGt>()
-                .AddTransient<ITranslateWithUniqueCounter, TranslateLt>()
-                .AddTransient<ITranslateWithCommandOnly, TranslateAnd>()
-                .AddTransient<ITranslateWithCommandOnly, TranslateOr>()
-                .AddTransient<ITranslateWithCommandOnly, TranslateNot>()
-                .AddTransient<ITranslateWithLocationAndValue, TranslatePush>()
-                .AddTransient<ITranslateWithLocationAndValue, TranslatePop>()
+                .AddTransient<ITranslateAdd, TranslateAdd>()
+                .AddTransient<ITranslateSub, TranslateSub>()
+                .AddTransient<ITranslateNeg, TranslateNeg>()
+                .AddTransient<ITranslateEq, TranslateEq>()
+                .AddTransient<ITranslateGt, TranslateGt>()
+                .AddTransient<ITranslateLt, TranslateLt>()
+                .AddTransient<ITranslateAnd, TranslateAnd>()
+                .AddTransient<ITranslateOr, TranslateOr>()
+                .AddTransient<ITranslateNot, TranslateNot>()
+                .AddTransient<ITranslatePush, TranslatePush>()
+                .AddTransient<ITranslatePop, TranslatePop>()
                 //.AddTransient<ITranslateLabel, TranslateLabel>()
                 //.AddTransient<ITranslateGoto, TranslateGoto>()
                 //.AddTransient<ITranslateIfGoto, TranslateIfGoto>()
@@ -71,7 +71,7 @@ namespace VM
         public void Run()
         {
             _vmConverter.Convert();
-            Console.WriteLine("Press any key to exit...");
+            //Console.WriteLine("Press any key to exit...");
         }
     }
 }

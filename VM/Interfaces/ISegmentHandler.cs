@@ -2,6 +2,6 @@
 {
     internal interface ISegmentHandler
     {
-        string TranslateSegment(string segment);
+        public string TranslateSegment(string segment, string value);
     }
 }

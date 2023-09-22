@@ -7,7 +7,7 @@ using VM.Interfaces;
 
 namespace VM.Translators
 {
-    internal class TranslateNeg : ITranslateWithCommandOnly
+    internal class TranslateNeg : ITranslateNeg
     {
 
         public void Translate(StringBuilder stringBuilder)

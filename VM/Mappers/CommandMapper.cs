@@ -9,23 +9,23 @@ namespace VM.Mappers
 {
     internal class CommandMapper : ICommandMapper
     {
-        private readonly ITranslateWithCommandOnly _translateAdd;
-        private readonly ITranslateWithCommandOnly _translateAnd;
+        private readonly ITranslateAdd _translateAdd;
+        private readonly ITranslateAnd _translateAnd;
+        private readonly ITranslateEq _translateEq;
+        private readonly ITranslateGt _translateGt;
+        private readonly ITranslateLt _translateLt;
+        private readonly ITranslateNeg _translateNeg;
+        private readonly ITranslateNot _translateNot;
+        private readonly ITranslateOr _translateOr;
+        private readonly ITranslatePop _translatePop;
+        private readonly ITranslatePush _translatePush;
+        private readonly ITranslateSub _translateSub;
         //private readonly ITranslateCall _translateCall;
-        private readonly ITranslateWithUniqueCounter _translateEq;
         //private readonly ITranslateFunction _translateFunction;
         //private readonly ITranslateGoto _translateGoto;
-        private readonly ITranslateWithUniqueCounter _translateGt;
         //private readonly ITranslateIfGoto _translateIfGoto;
         //private readonly ITranslateLabel _translateLabel;
-        private readonly ITranslateWithUniqueCounter _translateLt;
-        private readonly ITranslateWithCommandOnly _translateNeg;
-        private readonly ITranslateWithCommandOnly _translateNot;
-        private readonly ITranslateWithCommandOnly _translateOr;
-        private readonly ITranslateWithLocationAndValue _translatePop;
-        private readonly ITranslateWithLocationAndValue _translatePush;
         //private readonly ITranslateReturn _translateReturn;
-        private readonly ITranslateWithCommandOnly _translateSub;
 
 
         public Dictionary<string, Action<StringBuilder>> CommandMap { get; private set; }
@@ -36,42 +36,42 @@ namespace VM.Mappers
 
 
         public CommandMapper(
-            ITranslateWithCommandOnly translateAdd,
-            ITranslateWithCommandOnly translateAnd,
+            ITranslateAdd translateAdd,
+            ITranslateAnd translateAnd,
+            ITranslateEq translateEq,
+            ITranslateGt translateGt,
+            ITranslateLt translateLt,
+            ITranslateNeg translateNeg,
+            ITranslateNot translateNot,
+            ITranslateOr translateOr,
+            ITranslatePop translatePop,
+            ITranslatePush translatePush,
+            ITranslateSub translateSub
             //ITranslateCall translateCall,
-            ITranslateWithUniqueCounter translateEq,
             //ITranslateFunction translateFunction,
             //ITranslateGoto translateGoto,
-            ITranslateWithUniqueCounter translateGt,
             //ITranslateIfGoto translateIfGoto,
             //ITranslateLabel translateLabel,
-            ITranslateWithUniqueCounter translateLt,
-            ITranslateWithCommandOnly translateNeg,
-            ITranslateWithCommandOnly translateNot,
-            ITranslateWithCommandOnly translateOr,
-            ITranslateWithLocationAndValue translatePop,
-            ITranslateWithLocationAndValue translatePush,
-                                        //ITranslateReturn translateReturn,
-                                        ITranslateWithCommandOnly translateSub
+            //ITranslateReturn translateReturn,
         )
         {
             _translateAdd = translateAdd;
             _translateAnd = translateAnd;
-            //_translateCall = translateCall;
             _translateEq = translateEq;
-            //_translateFunction = translateFunction;
-            //_translateGoto = translateGoto;
             _translateGt = translateGt;
-            //_translateIfGoto = translateIfGoto;
-            //_translateLabel = translateLabel;
             _translateLt = translateLt;
             _translateNeg = translateNeg;
             _translateNot = translateNot;
             _translateOr = translateOr;
             _translatePop = translatePop;
             _translatePush = translatePush;
-            //_translateReturn = translateReturn;
             _translateSub = translateSub;
+            //_translateCall = translateCall;
+            //_translateFunction = translateFunction;
+            //_translateGoto = translateGoto;
+            //_translateIfGoto = translateIfGoto;
+            //_translateLabel = translateLabel;
+            //_translateReturn = translateReturn;
             InitializeCommandMaps();
         }
 

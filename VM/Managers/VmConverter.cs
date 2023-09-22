@@ -55,6 +55,10 @@ namespace VM.Managers
                 {
                     int uniqueCounter = 0;
                     string line;
+                    //for (int i = 0; i < reader.ReadLine()!.Length; i++)
+                    //{
+
+                    //}
                     while ((line = reader.ReadLine()!) != null)
                     {
                         string[] splitLine = line.Split(" ");

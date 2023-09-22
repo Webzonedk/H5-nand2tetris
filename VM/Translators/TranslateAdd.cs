@@ -6,7 +6,7 @@ namespace VM.Translators
     /// <summary>
     /// This class is responsible for translating the add command from the VM language to assembly.
     /// </summary>
-    internal class TranslateAdd : ITranslateWithCommandOnly
+    internal class TranslateAdd : ITranslateAdd
     {
 
         /// <summary>

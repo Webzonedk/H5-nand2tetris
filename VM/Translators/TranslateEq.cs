@@ -7,7 +7,7 @@ using VM.Interfaces;
 
 namespace VM.Translators
 {
-    internal class TranslateEq : ITranslateWithUniqueCounter
+    internal class TranslateEq : ITranslateEq
     {
         public void Translate(int uniqueLabelId, StringBuilder stringBuilder)
         {
